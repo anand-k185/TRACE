@@ -2,10 +2,6 @@
 
 **Camera-only path prediction for a small autonomous car.** A vision transformer looks at one front-camera frame and predicts where the car should drive next. A simple controller follows that path. No map, lidar or odometry is used while driving.
 
-This repository holds the full proof of concept: data recording in simulation, labelling, training, inspection, closed-loop driving and scoring.
-
-> Status: research prototype, simulation only. See [Limitations](#limitations).
-
 ---
 
 ## How it works
@@ -248,16 +244,6 @@ Run `notebooks/TRACE_inspect_bev.ipynb`. For each frame it shows the predicted h
 
 ---
 
-## Limitations
-
-- **Simulation only.** Nothing has run on a real car.
-- **One visual environment.** Every track has the same ducts, floor and lighting. The tests show robustness to new layouts, not to new surroundings.
-- **Labels need a map.** Each training track needs an occupancy map to trace its centerline.
-- **Flat floor and fixed camera.** The geometry prior assumes both.
-- **Low frame rate.** The test machine delivers about 5 camera frames per second, and reaction delay is not compensated.
-- **No obstacles, no commands.** The model follows the corridor it sees and cannot yet avoid a block or choose a branch.
-- **`cluster/` is untested.** `train_bev.py` and the SLURM job file were written for Purdue's Gilbreth cluster but have not been run. Set the account and partition in the job file before trying them.
-
 ## Roadmap
 
 1. Finish the seen-versus-unseen robustness comparison.
@@ -266,8 +252,3 @@ Run `notebooks/TRACE_inspect_bev.ipynb`. For each frame it shows the predicted h
 4. A vision-language model (for example Qwen2.5-VL) at low rate to recognize exits and issue that command.
 5. Recovery training from the model's own drives (DAgger) and delay compensation.
 6. More visual variety, then a real F1TENTH car.
-
-## Acknowledgements
-
-- Simulator: [jfasate/f1tenth_gym_gazebo](https://github.com/jfasate/f1tenth_gym_gazebo)
-- Encoder architecture: Dosovitskiy et al., *An Image is Worth 16x16 Words* ([arXiv:2010.11929](https://arxiv.org/abs/2010.11929)); pretrained weights via [timm](https://github.com/huggingface/pytorch-image-models)
