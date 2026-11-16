@@ -1,0 +1,9 @@
+# Python packages for the scripts in scripts/ (on top of ROS 2 Humble's system Python).
+# Install torch and timm as described in the README so pip does not replace ROS's numpy.
+numpy<2
+pillow
+scipy
+pyyaml
+matplotlib
+torch
+timm
